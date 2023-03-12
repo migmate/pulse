@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulse/utils/color_utils.dart';
+import 'signup_screen.dart';
 import 'package:pulse/reusable_widgets/reusable_widget.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -20,12 +21,12 @@ class _SignInScreenState extends State<SignInScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              hexStringToColor("CB2B93"),
-              hexStringToColor("E55D87"),
-              hexStringToColor("F9887B")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            gradient: LinearGradient(
+                colors: [
+                  hexStringToColor("CB2B93"),
+                  hexStringToColor("E55D87"),
+                  hexStringToColor("F9887B")
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -36,23 +37,48 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(
                   height: 30,
                 ),
-            reusableTextField("Enter Username", Icons.person_outline, false,
-                _emailController),
-            SizedBox(
-              height: 20,
+                reusableTextField("Enter Username", Icons.person_outline, false,
+                    _emailController),
+                SizedBox(
+                  height: 20,
                 ),
                 reusableTextField("Enter Password", Icons.lock_outline, true,
                     _passwordController),
-        ],
+                SizedBox(
+                  height: 20,
+                ),
+                signInSignUpButton(context, true, () {}),
+                signUpOption(context)
+              ],
             ),
           ),
         ),
       ),
     );
   }
-
-
 }
 
-
-
+Row signUpOption(BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text("Don't have an account?",
+          style: TextStyle(color: Colors.white70)),
+      const SizedBox(width: 5),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignUpScreen()));
+        },
+        child: const Text(
+          "Sign Up",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ],
+  );
+}
